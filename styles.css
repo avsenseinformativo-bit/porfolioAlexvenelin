@@ -369,8 +369,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Shift right and down slightly */
-    transform: scale(1.1) translateX(7%) translateY(5%);
+    transform: scale(1.1) translateX(7%);
 }
 
 /* Mobile Layout - Lateral Robot Design */
