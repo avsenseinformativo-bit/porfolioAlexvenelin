@@ -363,7 +363,8 @@ a {
     display: none;
 }
 
-.ai-brain-container {
+/* Desktop robot container */
+.hero-visual-desktop .ai-brain-container {
     width: 100%;
     height: 100%;
     display: flex;
@@ -414,14 +415,14 @@ a {
         opacity: 0.35;
     }
 
-    .ai-brain-container {
+    /* Mobile robot container */
+    .hero-visual-mobile .ai-brain-container {
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         transform: scale(1.3);
-        /* Bigger robot */
         overflow: visible;
     }
 
