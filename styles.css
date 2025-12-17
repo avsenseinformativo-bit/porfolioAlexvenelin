@@ -404,14 +404,15 @@ a {
     .hero-visual-mobile {
         display: flex;
         position: absolute;
-        top: 45%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 100vw;
-        height: 120vh;
+        height: 100vh;
         z-index: 2;
         pointer-events: none;
         opacity: 0.35;
+        overflow: hidden;
     }
 
     /* Mobile robot container */
@@ -420,9 +421,10 @@ a {
         height: 100%;
         display: flex;
         justify-content: center;
-        align-items: center;
-        transform: scale(2.0) translateY(-5%);
-        overflow: visible;
+        align-items: flex-start;
+        padding-top: 15vh;
+        transform: scale(2.2);
+        overflow: hidden;
     }
 
     .hero-headline {
