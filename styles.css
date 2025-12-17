@@ -1203,6 +1203,7 @@ textarea {
     padding: var(--space-md) var(--space-lg);
     background-color: var(--color-bg-dark);
     border-top: 1px solid var(--color-border);
+    margin-bottom: 0;
 }
 
 .footer-container {
