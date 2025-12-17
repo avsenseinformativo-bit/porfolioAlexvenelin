@@ -404,11 +404,11 @@ a {
     .hero-visual-mobile {
         display: flex;
         position: absolute;
-        top: 50%;
+        top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 100vw;
-        height: 100vh;
+        height: 120vh;
         z-index: 2;
         pointer-events: none;
         opacity: 0.35;
@@ -421,7 +421,7 @@ a {
         display: flex;
         justify-content: center;
         align-items: center;
-        transform: scale(1.3);
+        transform: scale(2.0) translateY(-5%);
         overflow: visible;
     }
 
