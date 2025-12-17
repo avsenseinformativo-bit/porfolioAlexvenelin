@@ -62,7 +62,7 @@ a {
     text-decoration: none;
 }
 
-/* Paper Texture Overlay - Animated Grain */
+/* Paper Texture Overlay - Static Grain */
 .paper-texture {
     position: fixed;
     top: 0;
@@ -73,7 +73,6 @@ a {
     z-index: 1000;
     opacity: 0.35;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    animation: grainShift 0.5s steps(5) infinite;
 }
 
 @keyframes grainShift {
@@ -370,7 +369,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: scale(2.2) translateX(-5%);
+    transform: scale(3.5) translateX(-5%) translateY(-5%);
 }
 
 /* Mobile Layout - Lateral Robot Design */
@@ -1084,8 +1083,8 @@ spline-viewer {
         left: 0;
         width: 12px;
         height: 12px;
-        background-color: #2b5aff;
-        /* Electric Blue */
+        background-color: #1A1A1A;
+        /* Black */
         border-radius: 50%;
         pointer-events: none;
         z-index: 9999;
@@ -1094,8 +1093,8 @@ spline-viewer {
         will-change: transform;
         /* Performance hint */
         box-shadow:
-            0 0 10px rgba(43, 90, 255, 0.8),
-            0 0 20px rgba(43, 90, 255, 0.4);
+            0 0 10px rgba(26, 26, 26, 0.6),
+            0 0 20px rgba(26, 26, 26, 0.3);
         transition: width 0.3s, height 0.3s, background-color 0.3s, box-shadow 0.3s;
     }
 
@@ -1106,8 +1105,8 @@ spline-viewer {
         left: 0;
         width: 8px;
         height: 8px;
-        background-color: rgba(43, 90, 255, 0.5);
-        /* Electric Blue Transparent */
+        background-color: rgba(26, 26, 26, 0.5);
+        /* Black Transparent */
         border-radius: 50%;
         pointer-events: none;
         z-index: 9998;
@@ -1120,16 +1119,16 @@ spline-viewer {
     .cursor-orb.hovered {
         width: 40px;
         height: 40px;
-        background-color: rgba(43, 90, 255, 0.2);
-        box-shadow: 0 0 30px #2b5aff, 0 0 10px #2b5aff;
-        /* Cyan Glow */
+        background-color: rgba(26, 26, 26, 0.2);
+        box-shadow: 0 0 30px rgba(26, 26, 26, 0.5), 0 0 10px rgba(26, 26, 26, 0.3);
+        /* Dark Glow */
         backdrop-filter: blur(2px);
     }
 
     body.is-hovering .cursor-trail {
-        background-color: rgba(43, 90, 255, 0.6);
-        /* Cyan trail */
-        box-shadow: 0 0 5px #2b5aff;
+        background-color: rgba(26, 26, 26, 0.6);
+        /* Dark trail */
+        box-shadow: 0 0 5px rgba(26, 26, 26, 0.5);
     }
 }
 
