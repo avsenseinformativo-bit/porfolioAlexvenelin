@@ -1,144 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Alex Venelin - Web Designer & AI Flow Expert. Creating intelligent, precise, and futuristic digital experiences.">
-    <title>Alex Venelin | Web Designer + AI Flow Expert</title>
+    <title>Alex Venelin | AI Architect</title>
 
-    <!-- Google Fonts - Swiss-style Grotesque -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
         rel="stylesheet">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://alexvenelin.com/">
-    <meta property="og:title" content="Alex Venelin | Web Designer + AI Flow Expert">
-    <meta property="og:description" content="Creating intelligent, precise, and futuristic digital experiences.">
-    <meta property="og:image" content="https://alexvenelin.com/images/og-image.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://alexvenelin.com/">
-    <meta property="twitter:title" content="Alex Venelin | Web Designer + AI Flow Expert">
-    <meta property="twitter:description" content="Creating intelligent, precise, and futuristic digital experiences.">
-    <meta property="twitter:image" content="https://alexvenelin.com/images/og-image.png">
-
     <link rel="stylesheet" href="styles.css">
-    <!-- Spline Viewer -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.20/build/spline-viewer.js"></script>
 </head>
 
 <body>
-    <!-- Loading Screen -->
-    <div class="loader" id="loader">
-        <div class="loader-content">
-            <img src="images/logo-avene.png" alt="Avene Logo" class="loader-logo">
-            <div class="loader-bar">
-                <div class="loader-progress"></div>
+    <div class="noise-overlay"></div>
+    <div class="cursor-core"></div>
+    <div class="cursor-aura"></div>
+
+    <header class="hero">
+        <canvas id="heroCanvas"></canvas>
+
+        <!-- Top Nav -->
+        <nav class="top-nav">
+            <div class="logo">AV_</div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span class="mono">SISTEMA ACTIVO</span>
             </div>
-        </div>
-    </div>
-
-    <!-- Paper texture overlay -->
-    <div class="paper-texture"></div>
-
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-logo">AV</div>
-        <button class="nav-menu" aria-label="Open menu">
-            <span>Menu</span>
-        </button>
-    </nav>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="menu-overlay" id="menuOverlay">
-        <div class="menu-content">
-            <button class="menu-close" aria-label="Close menu">&times;</button>
-            <nav class="menu-nav">
-                <a href="#hero" class="menu-link">Home</a>
-                <a href="#about" class="menu-link">About</a>
-            </nav>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <!-- Hero Text (Left Side) -->
-        <div class="hero-overlay-text">
-            <h1 class="hero-headline">
-                <div class="hero-line">
-                    <span class="text-filled animate-line" style="--delay: 0">HEY, I'M</span>
-                    <span class="text-outline animate-line" style="--delay: 1">ALEX VENELIN</span>
+            <div class="menu-toggle">
+                <span class="mono">ÍNDICE</span>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
                 </div>
-                <div class="hero-line">
-                    <span class="text-filled animate-line" style="--delay: 2">CRAFTING</span>
-                    <span class="text-outline animate-line" style="--delay: 3">INTELLIGENT EXPERIENCES</span>
+            </div>
+        </nav>
+
+        <div class="hero-layout">
+            <!-- Left: Title Block -->
+            <div class="hero-left">
+                <div class="tagline mono">/ SISTEMAS AUTÓNOMOS</div>
+                <h1 class="hero-title">
+                    <span class="white">ELEVANDO</span><br>
+                    <span class="white">INTERFACES</span><br>
+                    <span class="blue">AUTOMATIZANDO</span><br>
+                    <span class="blue">EL FUTURO.</span>
+                </h1>
+                <div class="by-line mono">BY ALEX VENELIN</div>
+            </div>
+
+            <!-- Right: Info Block -->
+            <div class="hero-right">
+                <div class="right-inner">
+                    <a href="#work" class="cta-link">
+                        <span class="cta-text">EXPLORAR PROYECTOS</span>
+                        <div class="cta-pill">
+                            <span class="cta-arrow">→</span>
+                        </div>
+                    </a>
+                    <p class="hero-desc">
+                        Transformo ideas en experiencias digitales de alto impacto, optimizando cada proceso mediante
+                        soluciones inteligentes que potencian tu presencia y eficiencia online.
+                    </p>
                 </div>
-            </h1>
-            <p class="hero-subtitle animate-line" style="--delay: 4">Web Designer, UX/UI Specialist<br>& AI Automation
-                Expert</p>
-            <div class="hero-cta-links animate-line" style="--delay: 5">
-                <a href="work.html" class="hero-cta hero-cta-pill">→ See My Work</a>
-                <a href="mailto:alex@venelin.com" class="hero-cta hero-cta-pill primary">Let's Work Together</a>
             </div>
         </div>
 
-        <!-- 3D Robot - Desktop (Right Side) -->
-        <div class="hero-visual hero-visual-desktop">
-            <div class="ai-brain-container">
-                <spline-viewer url="https://prod.spline.design/5DIIKJ4aP4j1ztiY/scene.splinecode"></spline-viewer>
-                <div class="spline-watermark-cover"></div>
-            </div>
-        </div>
-
-        <!-- 3D Robot - Mobile (Background) -->
-        <div class="hero-visual hero-visual-mobile">
-            <div class="ai-brain-container">
-                <spline-viewer url="https://prod.spline.design/5DIIKJ4aP4j1ztiY/scene.splinecode"></spline-viewer>
-                <div class="spline-watermark-cover"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Content removed as per request -->
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
+        <!-- Meta Footer -->
+        <footer class="hero-footer">
             <div class="footer-left">
-                <span class="footer-logo">AV</span>
-                <span class="footer-copyright">&copy; 2025 Alex Venelin</span>
+                <div class="meta-item">
+                    <span class="label mono">UBICACIÓN</span>
+                    <span class="value">MADRID / ES</span>
+                </div>
+                <div class="meta-item">
+                    <span class="label mono">ESPECIALIZACIÓN</span>
+                    <span class="value">AUTOMATIZACIÓN</span>
+                </div>
             </div>
             <div class="footer-right">
-                <span class="footer-tagline">Designed with precision. Built with purpose.</span>
+                <span class="scroll-label mono">INICIAR_SCROLL</span>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </header>
 
     <script src="script.js"></script>
-    <script>
-        // Hide loader after animation completes
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                if (loader) {
-                    loader.classList.add('hidden');
-                }
-            }, 2200); // Wait for progress bar animation
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof initCursorEffect === 'function') initCursorEffect();
-            if (typeof initContactForm === 'function') initContactForm();
-            if (typeof initSmoothScroll === 'function') initSmoothScroll();
-            if (typeof initParallaxEffect === 'function') initParallaxEffect();
-        });
-    </script>
 </body>
 
 </html>
