@@ -126,29 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== GLOBE PARALLAX ZOOM (Optimized) =====
+    // ===== GLOBE FADE (Simplified - No animation) =====
     const globeContainer = document.querySelector('.globe-container');
     const hero = document.querySelector('.hero');
     const heroCenter = document.querySelector('.hero-center');
-    const watermarkBlocker = document.getElementById('watermark-blocker');
-
-    // Configuration
-    const targetOffsetX = 40;
-    const targetOffsetY = -8;
-    const maxScale = 1.8;
-    // Animation finishes at 40%, leaving a "static" section for the globe
-    const animationEndPoint = 0.4;
-    const smoothing = 0.08; // Slightly faster for more responsiveness
-
-    // State
-    let currentScale = 1;
-    let currentX = 0;
-    let currentY = 0;
-    let currentOpacity = 1;
-    let targetScale = 1;
-    let targetX = 0;
-    let targetY = 0;
-    let targetOpacity = 1;
     let ticking = false;
 
     // Throttled scroll handler with SNAP Logic
@@ -158,70 +139,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
                 updateScrollValues();
-                handleScrollSnap();
                 ticking = false;
             });
             ticking = true;
         }
     }, { passive: true });
 
-    function handleScrollSnap() {
-        if (isSnapping) return;
-
-        const scrollY = window.scrollY;
-        const heroHeight = hero?.offsetHeight || 1;
-        const viewportHeight = window.innerHeight;
-
-        // Snap point should be where animation ends relative to scrollable height
-        // Animation ends at 0.4 progress of (heroHeight - viewportHeight)
-        const scrollableHeight = heroHeight - viewportHeight;
-        const snapPoint = scrollableHeight * animationEndPoint;
-
-        const snapRange = 50; // trigger snap if within 50px
-
-        if (Math.abs(scrollY - snapPoint) < snapRange) {
-            // User is near the "Globe Section", snap to it
-            isSnapping = true;
-            window.scrollTo({
-                top: snapPoint,
-                behavior: 'smooth'
-            });
-
-            // Release snap lock after animation
-            setTimeout(() => {
-                isSnapping = false;
-            }, 500);
-        }
-    }
-
     function updateScrollValues() {
         const scrollY = window.scrollY;
-        const heroHeight = hero?.offsetHeight || 1;
         const viewportHeight = window.innerHeight;
 
-        const scrollProgress = Math.min(scrollY / (heroHeight - viewportHeight), 1);
-        const animationProgress = Math.min(scrollProgress / animationEndPoint, 1);
-        const easedProgress = easeOutCubic(animationProgress);
-
-        targetScale = 1 + (easedProgress * (maxScale - 1));
-        targetX = easedProgress * targetOffsetX;
-        targetY = easedProgress * targetOffsetY;
-        // ULTRA Instant fade: Text gone after 25px
-        // DIRECTLY set targetOpacity (removed from loop interpolation for speed)
-        const opacity = Math.max(0, 1 - (scrollY / 25));
-
-        // Blur effect: 0px at top, 25px when invisible (Increased intensity)
-        // Creates a strong "focus in" effect when scrolling up
-        const blurAmount = (1 - opacity) * 25;
+        // Hero text fade (instant)
+        const textOpacity = Math.max(0, 1 - (scrollY / 25));
+        const blurAmount = (1 - textOpacity) * 25;
 
         if (heroCenter) {
-            heroCenter.style.opacity = opacity;
+            heroCenter.style.opacity = textOpacity;
             heroCenter.style.filter = `blur(${blurAmount}px)`;
         }
 
-        // Watermark
+        // Globe fade to black (slower, after text disappears)
+        // Start fading after 50px, fully gone at 300px
+        const globeOpacity = Math.max(0, 1 - ((scrollY - 50) / 250));
+
+        if (globeContainer) {
+            globeContainer.style.opacity = scrollY < 50 ? 1 : globeOpacity;
+        }
+
+        // Watermark blocker - ONLY visible at absolute top (scrollY = 0)
+        const watermarkBlocker = document.getElementById('watermark-blocker');
         if (watermarkBlocker) {
-            watermarkBlocker.style.opacity = scrollY > 50 ? '0' : '1';
+            watermarkBlocker.style.opacity = scrollY < 5 ? '1' : '0';
         }
 
         // Scroll Indicator Fade
@@ -230,24 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollCta.style.opacity = scrollY > 50 ? '0' : '0.7';
         }
     }
-
-    // Main animation loop (GPU accelerated)
-    function animate() {
-        // Smooth interpolation for Globe (keep smooth)
-        currentScale += (targetScale - currentScale) * smoothing;
-        currentX += (targetX - currentX) * smoothing;
-        currentY += (targetY - currentY) * smoothing;
-
-        // REMOVED opacity interpolation - handled directly in updateScrollValues for instant effect
-
-        // Apply transforms using translate3d for GPU acceleration
-        if (globeContainer) {
-            globeContainer.style.transform = `translate3d(${currentX}%, ${currentY}%, 0) scale(${currentScale})`;
-        }
-
-        requestAnimationFrame(animate);
-    }
-    animate();
 
     // Smoother easing function
     function easeOutCubic(t) {
