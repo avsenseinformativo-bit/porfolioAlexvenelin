@@ -4,89 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Venelin | AI Architect</title>
+    <title>Alex Venelín | Digital Design & AI Automation</title>
 
-    <!-- Fonts -->
+    <!-- Google Fonts - Poppins + Fraunces + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@300;400;500&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+
+    <!-- Spline Viewer -->
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.27/build/spline-viewer.js"></script>
 
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="noise-overlay"></div>
-    <div class="cursor-core"></div>
-    <div class="cursor-aura"></div>
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
 
-    <header class="hero">
-        <canvas id="heroCanvas"></canvas>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-        <!-- Top Nav -->
-        <nav class="top-nav">
-            <div class="logo">AV_</div>
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                <span class="mono">SISTEMA ACTIVO</span>
-            </div>
-            <div class="menu-toggle">
-                <span class="mono">ÍNDICE</span>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="logo">ALEX VENELÍN</a>
+        <nav class="nav glass-menu">
+            <!-- Magnetic Background Pill -->
+            <div class="nav-pill-background"></div>
+
+            <ul class="nav-list">
+                <li><a href="#hero" class="nav-link active" data-cursor="link"><span class="nav-num">01</span>
+                        INICIO</a></li>
+                <li><a href="#about" class="nav-link" data-cursor="link"><span class="nav-num">02</span> VISIÓN</a></li>
+                <li><a href="#services" class="nav-link" data-cursor="link"><span class="nav-num">03</span>
+                        IA Y DISEÑO WEB</a></li>
+            </ul>
+
+            <a href="#contacto" class="nav-cta" data-cursor="link">INICIAR PROYECTO</a>
         </nav>
+    </header>
 
-        <div class="hero-layout">
-            <!-- Left: Title Block -->
-            <div class="hero-left">
-                <div class="tagline mono">/ SISTEMAS AUTÓNOMOS</div>
-                <h1 class="hero-title">
-                    <span class="white">ELEVANDO</span><br>
-                    <span class="white">INTERFACES</span><br>
-                    <span class="blue">AUTOMATIZANDO</span><br>
-                    <span class="blue">EL FUTURO.</span>
+    <!-- Hero Section with Spline Globe -->
+    <section class="hero" id="hero">
+        <!-- Invisible overlay to block all mouse/scroll events on globe -->
+        <div class="interaction-blocker"></div>
+
+        <div class="globe-container">
+            <spline-viewer url="https://prod.spline.design/5tbHtvzEALWFNezM/scene.splinecode?t=1703159400"
+                class="spline-globe">
+            </spline-viewer>
+        </div>
+
+        <!-- Center content - Hero text -->
+        <div class="hero-center">
+            <div class="hero-text">
+                <h1 class="hero-headline reveal">
+                    <span class="line-1">Creo <span class="script">experiencias digitales</span></span>
+                    <span class="line-2">que inspiran y <span class="script">convierten</span></span>
                 </h1>
-                <div class="by-line mono">BY ALEX VENELIN</div>
-            </div>
-
-            <!-- Right: Info Block -->
-            <div class="hero-right">
-                <div class="right-inner">
-                    <a href="#work" class="cta-link">
-                        <span class="cta-text">EXPLORAR PROYECTOS</span>
-                        <div class="cta-pill">
-                            <span class="cta-arrow">→</span>
-                        </div>
-                    </a>
-                    <p class="hero-desc">
-                        Transformo ideas en experiencias digitales de alto impacto, optimizando cada proceso mediante
-                        soluciones inteligentes que potencian tu presencia y eficiencia online.
-                    </p>
-                </div>
+                <p class="hero-subheadline reveal">
+                    Diseño de interfaz premium y ecosistemas inteligentes impulsados por IA.<br>
+                    <span class="mono">La intersección entre estética y eficiencia.</span>
+                </p>
+                <a href="#proyectos" class="cta-button reveal" data-cursor="link">
+                    <span>Explorar Proyectos</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
             </div>
         </div>
 
-        <!-- Meta Footer -->
-        <footer class="hero-footer">
-            <div class="footer-left">
-                <div class="meta-item">
-                    <span class="label mono">UBICACIÓN</span>
-                    <span class="value">MADRID / ES</span>
-                </div>
-                <div class="meta-item">
-                    <span class="label mono">ESPECIALIZACIÓN</span>
-                    <span class="value">AUTOMATIZACIÓN</span>
-                </div>
+        <!-- Scroll Indicator -->
+        <div class="scroll-cta">
+            <span class="scroll-text">SCROLL</span>
+            <div class="mouse-icon">
+                <div class="wheel"></div>
             </div>
-            <div class="footer-right">
-                <span class="scroll-label mono">INICIAR_SCROLL</span>
-            </div>
-        </footer>
-    </header>
+        </div>
+    </section>
+
+    <!-- About Section (appears after zoom) -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <!-- Content will be added later -->
+        </div>
+    </section>
+
+    <!-- Watermark blocker - FIXED above everything -->
+    <div id="watermark-blocker"
+        style="position: fixed; bottom: 0; right: 0; width: 200px; height: 150px; background-color: #000000; z-index: 999999; pointer-events: none;">
+    </div>
 
     <script src="script.js"></script>
 </body>
