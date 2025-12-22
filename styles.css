@@ -289,8 +289,8 @@ body {
 .hero {
     position: relative;
     width: 100%;
-    /* Increased to 250vh to allow a "Globe Section" phase */
-    height: 250vh;
+    /* Reduced to 100vh so Vision section appears immediately after fade */
+    height: 100vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -492,8 +492,8 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* ===== ABOUT SECTION ===== */
-.about {
+/* ===== VISION SECTION ===== */
+.vision {
     position: relative;
     min-height: 100vh;
     background: #000000;
@@ -501,12 +501,108 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 200;
+    padding: 6rem 2rem;
 }
 
-.about-content {
+.vision-container {
     text-align: center;
-    padding: 4rem;
-    max-width: 800px;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Section Label */
+.section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: #8A2BE2;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+/* Main Headline */
+.vision-headline {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    margin: 0;
+}
+
+.vision-headline .highlight {
+    color: #8A2BE2;
+    font-style: italic;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+}
+
+/* Decorative Line */
+.decorative-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.decorative-line .line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.5), transparent);
+}
+
+.decorative-line .dot {
+    width: 6px;
+    height: 6px;
+    background: #8A2BE2;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+}
+
+/* Description */
+.vision-description {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0;
+}
+
+/* Stats Container */
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -550,5 +646,23 @@ body {
     html,
     body {
         cursor: auto;
+    }
+
+    /* Vision Section Mobile */
+    .vision {
+        padding: 4rem 1.5rem;
+    }
+
+    .vision-headline {
+        font-size: 1.8rem;
+    }
+
+    .stats-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
     }
 }
