@@ -149,28 +149,33 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollY = window.scrollY;
         const viewportHeight = window.innerHeight;
 
-        // Hero text fade (instant)
-        const textOpacity = Math.max(0, 1 - (scrollY / 25));
-        const blurAmount = (1 - textOpacity) * 25;
+        // ===== CINEMATIC HERO EXIT =====
+        // Transition range increased for smoother effect (0px to 500px)
+        const transitionRange = 500;
+        const progress = Math.min(scrollY / transitionRange, 1);
+
+        // Opacity: Gradual fade
+        const textOpacity = 1 - progress;
+
+        // Blur: Increases as we scroll (creates depth)
+        const blurAmount = progress * 10;
+
+        // Scale: Shrinks slightly to look like it's moving backward
+        const scaleAmount = 1 - (progress * 0.1);
 
         if (heroCenter) {
             heroCenter.style.opacity = textOpacity;
             heroCenter.style.filter = `blur(${blurAmount}px)`;
+            heroCenter.style.transform = `scale(${scaleAmount})`;
         }
 
-        // Globe fade to black (slower, after text disappears)
-        // Start fading after 50px, fully gone at 300px
-        const globeOpacity = Math.max(0, 1 - ((scrollY - 50) / 250));
-
+        // Globe fade to black (matches text but slightly delayed)
         if (globeContainer) {
-            globeContainer.style.opacity = scrollY < 50 ? 1 : globeOpacity;
+            globeContainer.style.opacity = textOpacity;
+            globeContainer.style.transform = `scale(${scaleAmount})`;
         }
 
-        // Watermark blocker - ONLY visible at absolute top (scrollY = 0)
-        const watermarkBlocker = document.getElementById('watermark-blocker');
-        if (watermarkBlocker) {
-            watermarkBlocker.style.opacity = scrollY < 5 ? '1' : '0';
-        }
+
 
         // Scroll Indicator Fade
         const scrollCta = document.querySelector('.scroll-cta');
@@ -183,4 +188,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function easeOutCubic(t) {
         return 1 - Math.pow(1 - t, 3);
     }
+
+    // ===== SCROLL REVEAL OBSERVER (Vision Section) =====
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
 });

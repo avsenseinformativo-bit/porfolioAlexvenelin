@@ -314,7 +314,7 @@ body {
 .spline-globe {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 57%;
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
@@ -665,4 +665,48 @@ body {
     .stat-number {
         font-size: 2rem;
     }
+}
+
+/* ===== SCROLL REVEAL ANIMATION ===== */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.215, 0.61, 0.355, 1),
+        transform 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+    will-change: opacity, transform;
+}
+
+.scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger Delays */
+.scroll-reveal:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+/* Headline */
+.scroll-reveal:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+/* Line */
+.scroll-reveal:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* Description */
+.scroll-reveal:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+/* Stats */
+
+/* Hero Text Smooth Blur/Fade Override */
+.hero-center {
+    /* Ensure hardware acceleration */
+    will-change: opacity, transform, filter;
+    /* Smooth transition for when JS updates properties */
+    transition: opacity 0.1s linear, filter 0.1s linear, transform 0.1s linear;
 }
