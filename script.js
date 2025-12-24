@@ -189,13 +189,69 @@ document.addEventListener('DOMContentLoaded', () => {
         return 1 - Math.pow(1 - t, 3);
     }
 
-    // ===== SCROLL REVEAL OBSERVER (Vision Section) =====
+    // ===== SCROLL REVEAL OBSERVER (Vision Section & Stats) =====
     const revealElements = document.querySelectorAll('.scroll-reveal');
+    const statsContainer = document.querySelector('.stats-container');
+    let statsPlayed = false;
+
+    // Stats Counting Animation
+    function animateValue(obj, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+
+            // Ease out expo
+            const easeProgress = 1 - Math.pow(1 - progress, 4);
+
+            let currentVal = Math.floor(easeProgress * (end - start) + start);
+
+            // Format: Add '+' or '%' based on original content
+            if (obj.dataset.target.includes('+')) {
+                // Not handled here, we passed raw number. 
+                // We'll rely on innerHTML logic below or pure text
+            }
+
+            // Naive text update
+            // We need to keep symbols
+            const originalText = obj.getAttribute('data-original') || obj.textContent;
+            const isPercent = originalText.includes('%');
+            const isPlus = originalText.includes('+');
+            const isPlusEnd = originalText.endsWith('+'); // e.g. 50+ or +50? 
+
+            // Let's stick to the raw target value passed to function
+            let text = currentVal;
+            if (isPercent) text += '%';
+            if (isPlus && !isPlusEnd) text = '+' + text; // +50
+            if (isPlus && isPlusEnd) text = text + '+'; // 50+
+
+            obj.innerHTML = text;
+
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                obj.innerHTML = originalText; // Snap to final exact string from HTML to be safe
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
 
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
+
+                // If this is the stats container, trigger counter
+                if (entry.target.classList.contains('stats-container') && !statsPlayed) {
+                    const counters = entry.target.querySelectorAll('.stat-number');
+                    counters.forEach(counter => {
+                        // Store original text
+                        counter.setAttribute('data-original', counter.textContent);
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        animateValue(counter, 0, target, 2000);
+                    });
+                    statsPlayed = true;
+                }
             }
         });
     }, {
@@ -204,4 +260,96 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
+    if (statsContainer) revealObserver.observe(statsContainer);
+
+    // ===== BLOB PARALLAX =====
+    const blob = document.querySelector('.vision-blob');
+    if (blob) {
+        document.addEventListener('mousemove', (e) => {
+            if (!blob) return;
+            // Calculate center
+            const x = window.innerWidth / 2;
+            const y = window.innerHeight / 2;
+
+            const mouseX = e.clientX - x;
+            const mouseY = e.clientY - y;
+
+            // Subtle movement (inverted)
+            const moveX = mouseX * -0.05;
+            const moveY = mouseY * -0.05;
+
+            // Apply translation on top of the centering translate(-50%, -50%) 
+            // We use CSS variable or just overwrite transform safely?
+            // Animation is already running on transform.
+            // Better to animate LEFT/TOP or use margins to avoid conflict with keyframes
+            // Or use a wrapper.
+            // Let's use margin-left/top for subtle offset to not break 'blobFloat' transform
+
+            blob.style.marginLeft = `${moveX}px`;
+            blob.style.marginTop = `${moveY}px`;
+        }, { passive: true });
+    }
+    // ===== SPOTLIGHT EFFECT FOR CARDS =====
+    const cards = document.querySelectorAll("[data-spotlight]");
+
+    cards.forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+        });
+    });
+
+    // ===== PROJECT TOGGLE SWITCH =====
+    const toggleOptions = document.querySelectorAll('.toggle-option');
+    const toggleBg = document.querySelector('.toggle-bg');
+    const projectGrids = document.querySelectorAll('.projects-grid');
+
+    if (toggleOptions.length > 0) {
+        toggleOptions.forEach((option, index) => {
+            option.addEventListener('click', () => {
+                // Update Toggle State
+                toggleOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+
+                // Move Background Pill
+                // Assuming 2 options, 0 = 0% left, 1 = 50% left (approx, depends on styling)
+                // Better approach: calculate offset based on option position
+                const parentRect = option.parentElement.getBoundingClientRect();
+                const optionRect = option.getBoundingClientRect();
+                const relativeLeft = optionRect.left - parentRect.left;
+
+                // Adjust for padding (4px)
+                toggleBg.style.transform = `translateX(${index === 0 ? '0' : '100%'})`;
+
+
+                // Show/Hide Grids
+                const mode = option.dataset.mode;
+                const targetGrid = document.getElementById(`grid-${mode}`);
+
+                // Fade out all grids
+                projectGrids.forEach(grid => {
+                    grid.style.opacity = '0';
+                    grid.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        grid.style.display = 'none';
+                        grid.classList.remove('active');
+                    }, 400);
+                });
+
+                // Fade in target grid after delay
+                setTimeout(() => {
+                    targetGrid.style.display = 'grid';
+                    // Trigger reflow
+                    targetGrid.offsetHeight;
+                    targetGrid.style.opacity = '1';
+                    targetGrid.style.transform = 'translateY(0)';
+                    targetGrid.classList.add('active');
+                }, 400);
+            });
+        });
+    }
 });
